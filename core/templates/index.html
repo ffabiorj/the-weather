@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Qual temperatura você gosta?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+</head>
+
+<body>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Veja a temperatura da sua cidade.
+                </h1>
+            </div>
+        </div>
+    </section>
+    {% if messages %}
+        {% for message in messages  %}
+      <div class="notification is-info has-text-centered">
+          {{ message }}  
+        </div>
+        {% endfor %}
+    {% endif %}
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                {{ form.name }}
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-info">
+                                    Adicionar cidade
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if temp_weather %}
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+
+                        {% for temp in temp_weather  %}
+                    <div class="box">
+                       <a href="{% url 'delete_weather' temp.id %}"><button class="delete has-text-right"></button></a>
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                    <img src="http://openweathermap.org/img/w/{{ temp.icon }}.png" alt="Image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">{{ temp.city }}</span>
+                                        <br>
+                                        <span class="subtitle">{{ temp.temperature }}° C</span>
+                                        <br> {{ temp.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <div class="is-size-3 has-text-black-bis has-text-centered">
+    <p>Não a cidades adicionadas</p>
+    </div>
+    {% endif %}
+    <footer class="footer">
+    </footer>
+</body>
+
+</html>
