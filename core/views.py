@@ -5,9 +5,7 @@ from .forms import CityForm
 from django.contrib import messages
 
 def home(request):
-    """
-    
-    """
+    """This is a man view and retrive dados from post."""
     url = 'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=36a83bb3097fd2cad04a91b0bfe6b45c'
     cities = City.objects.all()
     weather_data = []
