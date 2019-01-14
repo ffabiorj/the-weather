@@ -8,21 +8,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Qual temperatura você gosta?</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-
 <body>
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">
-                    Veja a temperatura da sua cidade.
+                <h1 class="title"><a href="{% url 'home' %}">
+                    Veja a temperatura da sua cidade.</a>
                 </h1>
             </div>
         </div>
     </section>
     {% if messages %}
         {% for message in messages  %}
-      <div class="notification is-info has-text-centered">
+      <div id="notification" class="notification is-info has-text-centered">
           {{ message }}  
         </div>
         {% endfor %}
@@ -87,6 +87,14 @@
     {% endif %}
     <footer class="footer">
     </footer>
+<script>
+    let hide = document.getElementById('notification')
+    if(hide !== null){
+        setTimeout(function(){
+            hide.remove()
+        }, 3000);
+    }
+</script>
 </body>
 
 </html>
